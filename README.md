@@ -14,13 +14,13 @@ Once you have these dependencies installed, you can follow these steps to set up
 2. Open a terminal or command prompt and navigate to the root directory of the project.
 3. Create a new PostgreSQL database for the project.
 4. Update the database connection details in the application.properties file.
-5. Run the mvn clean install command to build the project and download any required dependencies.
-6. Run the mvn spring-boot:run command to start the application. 
+5. Run the `mvn clean install` command to build the project and download any required dependencies.
+6. Run the `mvn spring-boot:run` command to start the application. 
 
 Once the application is running, you can access it by navigating to http://localhost:8080 in your web browser.
 
 ## Planned features
-This application allows users to perform the following actions:
+This application will allow users to perform the following actions:
 
 - Create and delete Kanban boards.
 - Create and delete Kanban lists within a board.
