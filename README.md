@@ -1,7 +1,7 @@
-# Kanban Board
+# 📋 Kanban Board
 This is a simple Kanban board application that allows users to create and manage tasks or activities.
 
-## Getting Started
+## ✨ Getting Started
 To get started with this project, you will need to have the following software installed on your computer:
 
 - Java Development Kit (JDK) version 8 or higher
@@ -19,7 +19,7 @@ Once you have these dependencies installed, you can follow these steps to set up
 
 Once the application is running, you can access it by navigating to http://localhost:8080 in your web browser.
 
-## Planned features
+## ⏳ Planned features
 This application will allow users to perform the following actions:
 
 - Create and delete Kanban boards.
@@ -28,12 +28,12 @@ This application will allow users to perform the following actions:
 - Reorder cards within a list by dragging and dropping them.
 - Assign a due date and labels to a card.
 
-## Technologies Used
+## ⚙️ Technologies Used
 This project is implemented using the following technologies:
 
 - Java programming language
 - Spring Boot framework
 - PostgreSQL database server
 
-## License
+## 🪪 License
 This project is licensed under the MIT License. See the LICENSE file for more information.
