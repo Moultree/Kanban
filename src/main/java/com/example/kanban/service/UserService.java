@@ -2,7 +2,7 @@ package com.example.kanban.service;
 
 import com.example.kanban.entity.User;
 import com.example.kanban.exception.InvalidUserException;
-import com.example.kanban.exception.UserNotFoundException;
+import com.example.kanban.exception.NotFoundException;
 import com.example.kanban.repository.UserRepository;
 import com.example.kanban.service.interfaces.IUserService;
 import jakarta.validation.ConstraintViolation;
@@ -34,22 +34,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUserById(Long id) throws UserNotFoundException {
+    public User getUserById(Long id) throws NotFoundException {
         Optional<User> user = repository.findById(id);
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new NotFoundException("User not found with id: " + id);
         }
     }
 
     @Override
-    public User getUserByUsername(String username) throws UserNotFoundException {
+    public User getUserByUsername(String username) throws NotFoundException {
         Optional<User> user = repository.findByUsername(username);
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new UserNotFoundException("User not found with username: " + username);
+            throw new NotFoundException("User not found with username: " + username);
         }
     }
 
@@ -65,9 +65,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(Long id, User user) throws InvalidUserException {
+    public User updateUser(Long id, User user) throws NotFoundException {
         if (repository.findById(id).isEmpty()) {
-            throw new InvalidUserException("Cannot update user that doesn't exist");
+            throw new NotFoundException("Cannot update user that doesn't exist");
         }
 
         user.setId(id);
