@@ -1,7 +1,8 @@
 package com.example.kanban.entity;
 
-import java.util.List;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 /**
  * This class represents a list in a Kanban board.
@@ -25,7 +26,6 @@ public class KanbanList {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    // constructors
     public KanbanList() {
     }
 
@@ -34,7 +34,6 @@ public class KanbanList {
         this.board = board;
     }
 
-    // getters and setters
     public Long getId() {
         return id;
     }
@@ -67,9 +66,13 @@ public class KanbanList {
         this.board = board;
     }
 
-    // toString method
     @Override
     public String toString() {
-        return "List [id=" + id + ", name=" + name + ", cards=" + cards + ", board=" + board + "]";
+        return "KanbanList{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cards=" + cards +
+                ", board=" + board +
+                '}';
     }
 }
