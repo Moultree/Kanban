@@ -1,6 +1,9 @@
 package com.example.kanban.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +19,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
+    // TODO think about updating ownedBoards and invitedBoards
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Board> ownedBoards = new ArrayList<>();
+    @Column(name = "username", nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain alphanumeric characters")
+    private String username;
+    @Column(name = "password", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Password can only contain alphanumeric characters")
+    @Size(min = 8)
+    private String password;
+    @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "Invalid email address")
+    private String email;
 
     @ManyToMany(mappedBy = "invitedUsers")
     private final List<Board> invitedBoards = new ArrayList<>();
