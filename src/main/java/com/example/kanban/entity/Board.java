@@ -1,8 +1,9 @@
 package com.example.kanban.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a board in the Kanban board service.
@@ -19,9 +20,6 @@ public class Board {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<Task> tasks;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
@@ -32,13 +30,14 @@ public class Board {
             joinColumns = @JoinColumn(name = "board_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> invitedUsers = new ArrayList<>();
+    private final List<User> invitedUsers = new ArrayList<>();
 
     public Board() {
     }
 
-    public Board(String name) {
+    public Board(String name, User author) {
         this.name = name;
+        this.author = author;
     }
 
     public Long getId() {
@@ -57,15 +56,21 @@ public class Board {
         this.name = name;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public List<User> getInvitedUsers() {
+        return invitedUsers;
     }
 
+    @Override
     public String toString() {
-        return "Board [id=" + id + ", name=" + name + ", tasks=" + tasks + "]";
+        return "Board{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author=" + author +
+                ", invitedUsers=" + invitedUsers +
+                '}';
     }
 }
