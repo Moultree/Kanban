@@ -27,7 +27,10 @@ public class Card {
     @JoinColumn(name = "list_id")
     private KanbanList list;
 
-    // constructors
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assignee_id")
+    private User assignee;
+
     public Card() {
     }
 
@@ -38,7 +41,6 @@ public class Card {
         this.position = position;
     }
 
-    // getters and setters
     public Long getId() {
         return id;
     }
@@ -79,9 +81,23 @@ public class Card {
         this.position = position;
     }
 
-    // toString method
+    public User getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
+    }
+
     @Override
     public String toString() {
-        return "Card [id=" + id + ", title=" + title + ", description=" + description + ", list=" + list + "]";
+        return "Card{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", position=" + position +
+                ", list=" + list +
+                ", assignee=" + assignee +
+                '}';
     }
 }
