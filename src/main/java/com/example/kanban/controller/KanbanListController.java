@@ -1,47 +1,46 @@
 package com.example.kanban.controller;
 
 import com.example.kanban.entity.KanbanList;
-import com.example.kanban.repository.KanbanListRepository;
+import com.example.kanban.exception.NotFoundException;
+import com.example.kanban.service.interfaces.IKanbanListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/lists")
 public class KanbanListController implements Controller<KanbanList> {
 
-    private KanbanListRepository repository;
+    private final IKanbanListService service;
 
     @Autowired
-    public KanbanListController(KanbanListRepository sourceRepository) {
-        this.repository = sourceRepository;
+    public KanbanListController(IKanbanListService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
     public List<KanbanList> getAll() {
-        return repository.findAll();
+        return service.getAllKanbanLists();
     }
 
     @GetMapping("/{id}")
-    public Optional<KanbanList> getById(@PathVariable Long id) {
-        return repository.findById(id);
+    public KanbanList getById(@PathVariable Long id) throws NotFoundException {
+        return service.getKanbanListById(id);
     }
 
     @PostMapping("/")
-    public void add(@RequestBody KanbanList kanbanList) {
-        repository.save(kanbanList);
+    public void create(@RequestBody KanbanList kanbanList) {
+        service.createKanbanList(kanbanList);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody KanbanList kanbanList) {
-        kanbanList.setId(id);
-        repository.save(kanbanList);
+    public KanbanList update(@PathVariable Long id, @RequestBody KanbanList kanbanList) throws NotFoundException {
+        return service.updateKanbanList(id, kanbanList);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteKanbanList(id);
     }
 }

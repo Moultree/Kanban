@@ -1,48 +1,46 @@
 package com.example.kanban.controller;
 
 import com.example.kanban.entity.Board;
-import com.example.kanban.repository.BoardRepository;
+import com.example.kanban.exception.NotFoundException;
+import com.example.kanban.service.interfaces.IBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/boards")
 public class BoardController implements Controller<Board> {
 
-    private BoardRepository repository;
+    private final IBoardService service;
 
     @Autowired
-    public BoardController(BoardRepository sourceRepository) {
-        this.repository = sourceRepository;
+    public BoardController(IBoardService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
     public List<Board> getAll() {
-        return repository.findAll();
+        return service.getAllBoards();
     }
 
     @GetMapping("/{id}")
-    public Optional<Board> getById(@PathVariable Long id) {
-        return repository.findById(id);
+    public Board getById(@PathVariable Long id) throws NotFoundException {
+        return service.getBoardById(id);
     }
 
     @PostMapping("/")
-    public void add(@RequestBody Board board) {
-        repository.save(board);
+    public void create(@RequestBody Board board) throws NotFoundException {
+        service.createBoard(board);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody Board board) {
-        board.setId(id);
-        repository.save(board);
+    public Board update(@PathVariable Long id, @RequestBody Board board) throws NotFoundException {
+        return service.updateBoard(id, board);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteBoard(id);
     }
 }
-

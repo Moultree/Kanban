@@ -1,47 +1,46 @@
 package com.example.kanban.controller;
 
 import com.example.kanban.entity.Card;
-import com.example.kanban.repository.CardRepository;
+import com.example.kanban.exception.NotFoundException;
+import com.example.kanban.service.interfaces.ICardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cards")
 public class CardController implements Controller<Card> {
 
-    private CardRepository repository;
+    private final ICardService service;
 
     @Autowired
-    public CardController(CardRepository sourceRepository) {
-        this.repository = sourceRepository;
+    public CardController(ICardService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
     public List<Card> getAll() {
-        return repository.findAll();
+        return service.getAllCards();
     }
 
     @GetMapping("/{id}")
-    public Optional<Card> getById(@PathVariable Long id) {
-        return repository.findById(id);
+    public Card getById(@PathVariable Long id) throws NotFoundException {
+        return service.getCardById(id);
     }
 
     @PostMapping("/")
-    public void add(@RequestBody Card card) {
-        repository.save(card);
+    public void create(@RequestBody Card card) {
+        service.createCard(card);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody Card card) {
-        card.setId(id);
-        repository.save(card);
+    public Card update(@PathVariable Long id, @RequestBody Card card) throws NotFoundException {
+        return service.updateCard(id, card);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteCard(id);
     }
 }

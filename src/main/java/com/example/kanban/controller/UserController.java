@@ -1,48 +1,53 @@
 package com.example.kanban.controller;
 
 import com.example.kanban.entity.User;
-import com.example.kanban.repository.UserRepository;
+import com.example.kanban.exception.InvalidUserException;
+import com.example.kanban.exception.NotFoundException;
+import com.example.kanban.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController implements Controller<User> {
 
-    private UserRepository repository;
+    private final IUserService service;
 
     @Autowired
-    public UserController(UserRepository sourceRepository) {
-        this.repository = sourceRepository;
+    public UserController(IUserService service) {
+        this.service = service;
     }
 
     @GetMapping("/")
     public List<User> getAll() {
-        return repository.findAll();
+        return service.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<User> getById(@PathVariable Long id) {
-        return repository.findById(id);
+    public User getById(@PathVariable Long id) throws NotFoundException {
+        return service.getUserById(id);
     }
 
     @PostMapping("/")
-    public void add(@RequestBody User user) {
-        repository.save(user);
+    public void create(@RequestBody User user) throws InvalidUserException {
+        service.createUser(user);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
-        repository.save(user);
+    public User update(@PathVariable Long id, @RequestBody User user) throws NotFoundException {
+        return service.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.deleteUser(id);
+    }
+
+    @DeleteMapping("/{username}")
+    public void delete(@PathVariable String username) {
+        service.deleteUser(username);
     }
 }
 
