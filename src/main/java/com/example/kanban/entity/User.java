@@ -2,6 +2,9 @@ package com.example.kanban.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a user of the Kanban board service.
  */
@@ -21,6 +24,12 @@ public class User {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Board> ownedBoards = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "invitedUsers")
+    private final List<Board> invitedBoards = new ArrayList<>();
 
     public User() {
     }
