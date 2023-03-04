@@ -20,7 +20,7 @@ public class User {
     private Long id;
 
     // TODO think about updating ownedBoards and invitedBoards
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "authorId", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Board> ownedBoards = new ArrayList<>();
     @Column(name = "username", nullable = false, unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain alphanumeric characters")
