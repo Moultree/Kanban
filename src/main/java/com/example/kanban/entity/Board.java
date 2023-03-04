@@ -20,9 +20,8 @@ public class Board {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    @Column(name = "author_id")
+    private Long authorId;
 
     @ManyToMany
     @JoinTable(
@@ -35,9 +34,9 @@ public class Board {
     public Board() {
     }
 
-    public Board(String name, User author) {
+    public Board(String name, Long authorId) {
         this.name = name;
-        this.author = author;
+        this.authorId = authorId;
     }
 
     public Long getId() {
@@ -56,8 +55,8 @@ public class Board {
         this.name = name;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
     public List<User> getInvitedUsers() {
@@ -69,7 +68,7 @@ public class Board {
         return "Board{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", author=" + author +
+                ", author=" + authorId +
                 ", invitedUsers=" + invitedUsers +
                 '}';
     }
