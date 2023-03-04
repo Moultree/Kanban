@@ -2,6 +2,7 @@ package com.example.kanban.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Represents a board in the Kanban board service.
@@ -20,6 +21,18 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Task> tasks;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @ManyToMany
+    @JoinTable(
+            name = "board_invitations",
+            joinColumns = @JoinColumn(name = "board_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> invitedUsers = new ArrayList<>();
 
     public Board() {
     }
