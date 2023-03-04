@@ -1,6 +1,5 @@
 package com.example.kanban.controller;
 
-import com.example.kanban.entity.Board;
 import com.example.kanban.entity.User;
 import com.example.kanban.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +10,22 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController implements Controller<User>{
+public class UserController implements Controller<User> {
 
-    @Autowired
     private UserRepository repository;
 
-    public UserController(UserRepository sourceRepository){
+    @Autowired
+    public UserController(UserRepository sourceRepository) {
         this.repository = sourceRepository;
     }
 
     @GetMapping("/")
-    public List <User> getAll() {
+    public List<User> getAll() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional <User> getById(@PathVariable Long id) {
+    public Optional<User> getById(@PathVariable Long id) {
         return repository.findById(id);
     }
 

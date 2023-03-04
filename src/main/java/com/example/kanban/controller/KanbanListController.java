@@ -11,20 +11,21 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/lists")
 public class KanbanListController implements Controller<KanbanList> {
-    @Autowired
+
     private KanbanListRepository repository;
 
-    public KanbanListController(KanbanListRepository sourceRepository){
+    @Autowired
+    public KanbanListController(KanbanListRepository sourceRepository) {
         this.repository = sourceRepository;
     }
 
     @GetMapping("/")
-    public List <KanbanList> getAll() {
+    public List<KanbanList> getAll() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional <KanbanList> getById(@PathVariable Long id) {
+    public Optional<KanbanList> getById(@PathVariable Long id) {
         return repository.findById(id);
     }
 

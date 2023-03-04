@@ -1,28 +1,26 @@
 package com.example.kanban.controller;
 
 import com.example.kanban.entity.Board;
-import com.example.kanban.entity.User;
 import com.example.kanban.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/boards")
-public class BoardController implements Controller<Board>{
+public class BoardController implements Controller<Board> {
 
-    @Autowired
     private BoardRepository repository;
 
-    public BoardController(BoardRepository sourceRepository){
-        this.repository= sourceRepository;
+    @Autowired
+    public BoardController(BoardRepository sourceRepository) {
+        this.repository = sourceRepository;
     }
 
     @GetMapping("/")
-    public List <Board> getAll() {
+    public List<Board> getAll() {
         return repository.findAll();
     }
 
