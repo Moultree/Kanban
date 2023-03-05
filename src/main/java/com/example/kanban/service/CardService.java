@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class CardService implements ICardService {
 
-    CardRepository repository;
+    private CardRepository repository;
 
     @Autowired
     public CardService(CardRepository repository) {

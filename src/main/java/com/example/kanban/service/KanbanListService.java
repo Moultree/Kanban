@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class KanbanListService implements IKanbanListService {
 
-    KanbanListRepository repository;
+    private KanbanListRepository repository;
 
     @Autowired
     public KanbanListService(KanbanListRepository repository) {

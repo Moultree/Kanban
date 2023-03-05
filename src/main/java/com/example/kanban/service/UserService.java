@@ -18,9 +18,9 @@ import java.util.Set;
 @Service
 public class UserService implements IUserService {
 
-    UserRepository repository;
+    private final UserRepository repository;
 
-    ValidatorFactory validatorFactory;
+    private final ValidatorFactory validatorFactory;
 
     @Autowired
     public UserService(UserRepository repository, ValidatorFactory validatorFactory) {
