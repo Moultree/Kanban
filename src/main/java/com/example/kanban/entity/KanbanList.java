@@ -29,6 +29,11 @@ public class KanbanList {
     public KanbanList() {
     }
 
+    /**
+     * Creates KanbanList entity
+     * @param name Title of list
+     * @param board Board which contains this list
+     */
     public KanbanList(String name, Board board) {
         this.name = name;
         this.board = board;

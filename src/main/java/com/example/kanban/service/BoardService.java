@@ -16,6 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+/**
+ * Service class used to work with Board entities
+ * Can create, find, update and delete them
+ * Also used to work with invites, allowing to create invites and accepting them from users
+ */
 public class BoardService implements IBoardService {
 
     private final BoardRepository boardRepository;

@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+/**
+ * Service class used to work with KanbanList entities
+ * Can be used to create, find, update and delete them
+ */
 public class KanbanListService implements IKanbanListService {
 
     private KanbanListRepository repository;

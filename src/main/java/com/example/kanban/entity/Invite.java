@@ -7,6 +7,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "invites")
+/**
+ * Represents an invite in a Kanban board
+ * Invite is used by board owner to give other users access to this board
+ * Invites are not permanent and expire after certain amount of time
+ */
 public class Invite {
 
     @Id
@@ -30,6 +35,12 @@ public class Invite {
     public Invite() {
     }
 
+    /**
+     * Creates Invite entity
+     * @param board Board to which access is granted
+     * @param user User who can use this invite
+     * Expiration time is set to default (24 hours)
+     */
     public Invite(Board board, User user) {
         this.board = board;
         this.invitedUser = user;
@@ -37,6 +48,12 @@ public class Invite {
         this.expirationDate = LocalDateTime.now().plusHours(24);
     }
 
+    /**
+     * Creates Invite entity with custom expiration time
+     * @param board Board to which access is granted
+     * @param user User who can use this invite
+     * @param expirationDate Time during which invite can be used
+     */
     public Invite(Board board, User user, LocalDateTime expirationDate) {
         this.board = board;
         this.invitedUser = user;

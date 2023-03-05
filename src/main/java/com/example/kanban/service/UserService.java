@@ -16,6 +16,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+/**
+ * Service class used to work with User entities
+ * Can be used to create, find, update and delete them
+ */
 public class UserService implements IUserService {
 
     private final UserRepository repository;
@@ -53,6 +57,12 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Creates new User
+     * @param user User instance
+     * @return New User entry if validation was successful, raises exception otherwise
+     * @throws InvalidUserException
+     */
     @Override
     public User createUser(User user) throws InvalidUserException {
         Validator validator = validatorFactory.getValidator();

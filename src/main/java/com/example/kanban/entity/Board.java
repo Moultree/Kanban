@@ -15,12 +15,21 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * Unique identifier of board
+     */
     private Long id;
 
     @Column(name = "name")
+    /**
+     * Board's name in application
+     */
     private String name;
 
     @Column(name = "author_id")
+    /**
+     * Id of user owning the board
+     */
     private Long authorId;
 
     @ManyToMany
@@ -30,11 +39,19 @@ public class Board {
             inverseJoinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"board_id", "user_id"})
     )
+    /**
+     * List of users who have access to the board via invites
+     */
     private final List<User> invitedUsers = new ArrayList<>();
 
     public Board() {
     }
 
+    /**
+     * Creates Board entity
+     * @param name Board name
+     * @param authorId Id of user owning the board
+     */
     public Board(String name, Long authorId) {
         this.name = name;
         this.authorId = authorId;
