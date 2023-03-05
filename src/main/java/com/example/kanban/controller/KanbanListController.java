@@ -30,8 +30,8 @@ public class KanbanListController implements Controller<KanbanList> {
     }
 
     @PostMapping("/")
-    public void create(@RequestBody KanbanList kanbanList) {
-        service.createKanbanList(kanbanList);
+    public KanbanList create(@RequestBody KanbanList kanbanList) {
+        return service.createKanbanList(kanbanList);
     }
 
     @PutMapping("/{id}")

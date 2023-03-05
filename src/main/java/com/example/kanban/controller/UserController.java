@@ -31,8 +31,8 @@ public class UserController implements Controller<User> {
     }
 
     @PostMapping("/")
-    public void create(@RequestBody User user) throws InvalidUserException {
-        service.createUser(user);
+    public User create(@RequestBody User user) throws InvalidUserException {
+        return service.createUser(user);
     }
 
     @PutMapping("/{id}")
