@@ -30,8 +30,8 @@ public class CardController implements Controller<Card> {
     }
 
     @PostMapping("/")
-    public void create(@RequestBody Card card) {
-        service.createCard(card);
+    public Card create(@RequestBody Card card) {
+        return service.createCard(card);
     }
 
     @PutMapping("/{id}")

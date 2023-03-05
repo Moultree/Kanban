@@ -8,7 +8,7 @@ public interface Controller<T> {
 
     T getById(Long id) throws NotFoundException;
 
-    void create(T content) throws InvalidUserException, NotFoundException;
+    T create(T content) throws InvalidUserException, NotFoundException;
 
     T update(Long id, T content) throws InvalidUserException, NotFoundException;
 

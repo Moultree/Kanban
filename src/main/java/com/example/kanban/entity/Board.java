@@ -27,7 +27,8 @@ public class Board {
     @JoinTable(
             name = "board_invitations",
             joinColumns = @JoinColumn(name = "board_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"board_id", "user_id"})
     )
     private final List<User> invitedUsers = new ArrayList<>();
 
@@ -61,6 +62,14 @@ public class Board {
 
     public List<User> getInvitedUsers() {
         return invitedUsers;
+    }
+
+    public void addInvitedUser(User user) {
+        invitedUsers.add(user);
+    }
+
+    public void removeInvitedUser(User user) {
+        invitedUsers.remove(user);
     }
 
     @Override

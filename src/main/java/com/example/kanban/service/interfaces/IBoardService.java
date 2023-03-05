@@ -15,4 +15,8 @@ public interface IBoardService {
     Board updateBoard(Long id, Board board) throws NotFoundException;
 
     void deleteBoard(Long id);
+
+    String inviteUser(Long boardId, Long userId) throws NotFoundException;
+
+    void acceptInvitation(String token) throws NotFoundException;
 }
