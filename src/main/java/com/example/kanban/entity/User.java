@@ -1,5 +1,6 @@
 package com.example.kanban.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -19,16 +20,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // TODO think about updating ownedBoards and invitedBoards
+
     @OneToMany(mappedBy = "authorId", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Board> ownedBoards = new ArrayList<>();
+
     @Column(name = "username", nullable = false, unique = true)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username can only contain alphanumeric characters")
     private String username;
+
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Password can only contain alphanumeric characters")
     @Size(min = 8)
     private String password;
+
     @Column(name = "email", nullable = false, unique = true)
     @Email(message = "Invalid email address")
     private String email;
@@ -77,12 +82,29 @@ public class User {
         this.email = email;
     }
 
+    public void addOwnedBoard(Board board) {
+        ownedBoards.add(board);
+    }
+
+    public void removeOwnedBoard(Board board) {
+        ownedBoards.remove(board);
+    }
+
+    public void addInvitedBoard(Board board) {
+        invitedBoards.add(board);
+        board.addInvitedUser(this);
+    }
+
+    public void removeInvitedBoard(Board board) {
+        invitedBoards.remove(board);
+        board.removeInvitedUser(this);
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", ownedBoards=" + ownedBoards +
                 ", invitedBoards=" + invitedBoards +
