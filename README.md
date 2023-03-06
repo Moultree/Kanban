@@ -26,7 +26,7 @@ This application will allow users to perform the following actions:
 - Create and delete Kanban lists within a board.
 - Create, update, and delete cards within a list.
 - Reorder cards within a list by dragging and dropping them.
-- Assign a due date and labels to a card.
+- Create accounts and collaborate with a team.
 
 ## ⚙️ Technologies Used
 This project is implemented using the following technologies:
