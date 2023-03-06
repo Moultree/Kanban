@@ -83,10 +83,7 @@ public class BoardService implements IBoardService {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found with id: " + userId));
         Invite invite = new Invite(board, user);
 
-        board.addInvitedUser(user);
-
         inviteRepository.save(invite);
-        boardRepository.save(board);
 
         return invite.getToken();
     }
