@@ -90,8 +90,4 @@ public class UserService implements IUserService {
         user.ifPresent(u -> repository.delete(u));
     }
 
-    public void deleteUser(String username) {
-        Optional<User> user = repository.findByUsername(username);
-        user.ifPresent(u -> repository.delete(u));
-    }
 }
