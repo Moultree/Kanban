@@ -18,6 +18,4 @@ public interface IUserService {
     User updateUser(Long id, User user) throws NotFoundException;
 
     void deleteUser(Long id);
-
-    void deleteUser(String username);
 }
