@@ -1,7 +1,7 @@
 package com.example.kanban.security;
 
 import com.example.kanban.DTO.CredentialsDTO;
-import com.example.kanban.DTO.UserDTO;
+import com.example.kanban.entity.User;
 import com.example.kanban.service.AuthService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,21 +23,21 @@ public class UserAuthProvider implements AuthenticationProvider {
     //TODo change user to userdto
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UserDTO userDTO = null;
+        User user = null;
 
         if (authentication instanceof UsernamePasswordAuthenticationToken){
-            userDTO = authenticationService.authenticate(new CredentialsDTO(
+            user = authenticationService.authenticate(new CredentialsDTO(
                     (String) authentication.getPrincipal(),
                     (char[]) authentication.getCredentials()
             ));
         } else if (authentication instanceof PreAuthenticatedAuthenticationToken){
-            userDTO = authenticationService.findByToken((String) authentication.getPrincipal());
+            user = authenticationService.findByToken((String) authentication.getPrincipal());
         }
 
-        if (userDTO == null){
+        if (user == null){
             return null;
         }
-        return new UsernamePasswordAuthenticationToken(userDTO, null, Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
     }
 
     @Override

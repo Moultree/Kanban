@@ -1,7 +1,6 @@
 package com.example.kanban.service;
 
 import com.example.kanban.DTO.CredentialsDTO;
-import com.example.kanban.DTO.UserDTO;
 import com.example.kanban.entity.User;
 import com.example.kanban.exception.NotFoundException;
 import com.example.kanban.service.interfaces.IUserService;
@@ -26,10 +25,10 @@ public class AuthService {
         this.userService = userService;
     }
 
-    public UserDTO authenticate(CredentialsDTO credentialDto) {
+    public User authenticate(CredentialsDTO credentialDto) {
         //TODO change hardcode
         //return userService.getUserByUsername(credentialDto.getPrincipal());
-        return new UserDTO(1L, "username", "pass", "rofl");
+        return new User("username", "pass", "rofl");
     }
     public User findByUsername(String username){
             //TODO change hardcode
@@ -37,7 +36,7 @@ public class AuthService {
             return new User("username","pass","rofl");
     }
 
-    public UserDTO findByToken(String token){
+    public User findByToken(String token){
         String[] parts = token.split("&");
         Long userId = Long.valueOf(parts[0]);
         String username = parts[1];
@@ -49,7 +48,7 @@ public class AuthService {
             throw new RuntimeException("Invalid Cookie value");
         }
         //TODO link them somehow
-        return new UserDTO(user.getId(), user.getUsername(), user.getPassword(), user.getEmail());
+        return user;
     }
     /*
     Cookie
